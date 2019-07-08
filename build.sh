@@ -42,13 +42,13 @@ run_builder='go build -v'
 $run_builder -ldflags "-X $info" -o "${output}/redis-shake" "./src/redis-shake/main/main.go"
 echo "build successfully!"
 
-# copy scripts
-cp scripts/start.sh ${output}/
-cp scripts/stop.sh ${output}/
+# # copy scripts
+# cp scripts/start.sh ${output}/
+# cp scripts/stop.sh ${output}/
 
-if [ "Linux" == "$(uname -s)" ];then
-	# hypervisor
-	gcc -Wall -O3 scripts/hypervisor.c -o ${output}/hypervisor -lpthread
-elif [ "Darwin" == "$(uname -s)" ];then
-	printf "\\nWARNING !!! MacOS doesn't supply hypervisor\\n"
-fi
+# if [ "Linux" == "$(uname -s)" ];then
+# 	# hypervisor
+# 	gcc -Wall -O3 scripts/hypervisor.c -o ${output}/hypervisor -lpthread
+# elif [ "Darwin" == "$(uname -s)" ];then
+# 	printf "\\nWARNING !!! MacOS doesn't supply hypervisor\\n"
+# fi
