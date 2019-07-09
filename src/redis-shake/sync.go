@@ -683,6 +683,7 @@ func (ds *dbSyncer) syncCommand(reader *bufio.Reader, target []string, auth_type
 				data[i] = item.Args[i]
 				length += len(item.Args[i])
 			}
+			log.Println(item.Cmd, data)
 			err := c.Send(item.Cmd, data...)
 			if err != nil {
 				log.Panicf("dbSyncer[%v] Event:SendToTargetFail\tId:%s\tError:%s\t",
