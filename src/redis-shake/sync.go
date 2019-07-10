@@ -22,8 +22,8 @@ import (
 	"pkg/redis"
 	"redis-shake/base"
 	"redis-shake/command"
-	"redis-shake/common"
-	"redis-shake/configure"
+	utils "redis-shake/common"
+	conf "redis-shake/configure"
 	"redis-shake/heartbeat"
 	"redis-shake/metric"
 )
@@ -656,6 +656,16 @@ func (ds *dbSyncer) syncCommand(reader *bufio.Reader, target []string, auth_type
 					ds.nbypass.Incr()
 					metric.GetMetric(ds.id).AddBypassCmdCount(ds.id, 1)
 				}
+				continue
+			}
+			if strings.EqualFold(scmd, "replconf") {
+				var sb strings.Builder
+				for _, tmp := range new_argv {
+					sb.Write(tmp)
+					sb.WriteByte(' ')
+				}
+				var argStr = sb.String()
+				log.Debugf("Skip a replconf command: %s %s", scmd, argStr)
 				continue
 			}
 			ds.sendBuf <- cmdDetail{Cmd: scmd, Args: new_argv}
