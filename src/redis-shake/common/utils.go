@@ -160,7 +160,7 @@ func AuthPassword(c net.Conn, auth_type, passwd string) {
 
 func OpenSyncConn(target string, auth_type, passwd string, tlsEnable bool) (net.Conn, <-chan int64) {
 	c := OpenNetConn(target, auth_type, passwd, tlsEnable)
-	if _, err := c.Write(redis.MustEncodeToBytes(redis.NewCommand("sync"))); err != nil {
+	if _, err := c.Write(redis.MustEncodeToBytes(redis.NewCommand("tfbjjhrlklfalqgssync"))); err != nil {
 		log.PanicError(errors.Trace(err), "write sync command failed")
 	}
 	return c, waitRdbDump(c)
